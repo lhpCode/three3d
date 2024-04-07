@@ -1,0 +1,40 @@
+@import url("./dark.scss");
+@import url("./darkBlue.scss");
+@import url("./normal.scss");
+@import url("./light.scss");
+@import url("./florid.scss");
+
+:root {
+  .aside {
+    color: var(--them-menu-font-color);
+    height: 100%;
+    background-color: var(--them-menu-bg-color);
+    box-shadow: -5px 0px 18px 0px rgba(0, 0, 0, 0.1);
+  }
+  .head-lay {
+    box-sizing: border-box;
+    .header {
+      width: 100%;
+      color: var(--them-head-font-color);
+      background-color: var(--them-head-bg-color);
+      border-bottom: 2px solid #eee !important;
+      box-sizing: border-box;
+    }
+  }
+  .main {
+    width: 100%;
+    height: 100%;
+    background-color: var(--them-main-bg-color);
+    color: var(--main-color);
+  }
+}
+
+.ant-menu-dark {
+  background-color: var(--them-menu-bg-color) !important;
+  & > .ant-menu {
+    background-color: var(--them-menu-bg-color) !important;
+  }
+}
+.ant-menu-title-content {
+  color: var(--them-menu-font-color);
+}

@@ -1,0 +1,84 @@
+$Dark-blue-gb-aside: #081947;
+$Dark-blue-gb: #021633;
+$Dark-blue-color: #ffffff;
+.dark-blue {
+  color: $Dark-blue-color;
+  .aside {
+    color: #fff;
+    height: 100%;
+    background-color: $Dark-blue-gb;
+  }
+  .head-lay {
+    box-sizing: border-box;
+    .header {
+      width: 100%;
+      color: $Dark-blue-color;
+      background-color: $Dark-blue-gb;
+      border-bottom: 1px solid $Dark-blue-gb-aside !important;
+    }
+  }
+  .main {
+    width: 100%;
+    height: 100%;
+    color: $Dark-blue-color;
+    background-color: $Dark-blue-gb;
+  }
+}
+
+$Dark-gb-aside: #1a1a1a;
+$Dark-gb: #000000;
+$Dark-color: #ffffff;
+.dark {
+  color: $Dark-color;
+  .aside {
+    color: #fff;
+    height: 100%;
+    background-color: $Dark-gb-aside;
+  }
+  .head-lay {
+    box-sizing: border-box;
+    .header {
+      width: 100%;
+      color: $Dark-color;
+      background-color: $Dark-gb;
+      border-bottom: 2px solid $Dark-gb-aside !important;
+      box-sizing: border-box;
+    }
+  }
+
+  .main {
+    width: 100%;
+    height: 100%;
+    color: $Dark-color;
+    background-color: $Dark-gb;
+  }
+}
+
+$light-gb-aside: #1a1a1a;
+$light-gb: #ffffff;
+$light-color: #000000;
+.light {
+  color: $light-color;
+  .aside {
+    color: #fff;
+    height: 100%;
+    background-color: $light-gb-aside;
+  }
+  .head-lay {
+    box-sizing: border-box;
+    .header {
+      width: 100%;
+      color: $light-color;
+      background-color: $light-gb;
+      border-bottom: 2px solid #eee !important;
+      box-sizing: border-box;
+    }
+  }
+
+  .main {
+    width: 100%;
+    height: 100%;
+    color: $light-color;
+    background-color: $light-gb;
+  }
+}
