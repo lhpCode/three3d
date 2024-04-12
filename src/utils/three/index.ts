@@ -8,7 +8,7 @@ export default class SLThree {
   public readonly Three: three;
   public readonly ModelThree: ModelThree;
   public readonly SpriteThree: SpriteThree;
-
+  public fps: number | undefined;
   constructor(params: Params) {
     let db;
     if (openDB) {
@@ -25,12 +25,11 @@ export default class SLThree {
       width: this.Three.width,
       height: this.Three.height,
     });
-    let fps = 0;
     const clock = new THREE.Clock();
     const render = () => {
       const dt = clock.getDelta();
-      fps = Math.floor(1 / dt);
-      this.Three.render(dt);
+      this.fps = Math.floor(1 / dt);
+      this.Three.render();
       this.ModelThree.render(dt);
       requestAnimationFrame(render);
     };

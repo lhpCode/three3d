@@ -20,7 +20,7 @@ import { CSS2DRenderer } from "three/addons/renderers/CSS2DRenderer.js";
 
 import { CSS3DRenderer } from "three/addons/renderers/CSS3DRenderer.js";
 
-import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
+// import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 
 import { MoveTo } from "./utils/index";
 class Raycaster {
@@ -231,11 +231,13 @@ export default class Thre3d {
   };
   #setScene = () => {
     this.scene.background = new THREE.Color(0x333333);
-    // this.scene.fog = new THREE.Fog(0x333333, 10, 15);
-    this.scene.environment = new RGBELoader().load(
-      "https://threejs.org/examples/textures/equirectangular/venice_sunset_1k.hdr",
-    );
-    this.scene.environment.mapping = THREE.EquirectangularReflectionMapping;
+    // 雾
+    // // this.scene.fog = new THREE.Fog(0x333333, 10, 15);
+    // 环境光
+    // this.scene.environment = new RGBELoader().load(
+    //   "https://threejs.org/examples/textures/equirectangular/venice_sunset_1k.hdr",
+    // );
+    // this.scene.environment.mapping = THREE.EquirectangularReflectionMapping;
     // 天空
     // 注释，有需要自己添加背景图
     // this.scene.background = new THREE.CubeTextureLoader()
@@ -248,8 +250,10 @@ export default class Thre3d {
     //     "sky.back.jpg",
     //     "sky.front.jpg",
     //   ]);
-    // const AxesHelper = new THREE.AxesHelper(10000);
-    // AxesHelper.name = "辅助坐标系";
+    // 辅助坐标系
+    const AxesHelper = new THREE.AxesHelper(10000);
+    AxesHelper.name = "辅助坐标系";
+    this.scene.add(AxesHelper);
   };
   //点击事件
   #onMouseClick = (event: any) => {
@@ -321,27 +325,6 @@ export default class Thre3d {
     if (this.cameraLookAtFn) {
       this.cameraLookAtFn();
     }
-    if (
-      this.directionalLight &&
-      this.params.shadow &&
-      this.params.timeMultiply
-    ) {
-      const r = Date.now() * (0.0001 / this.params.timeMultiply);
-      this.directionalLight.position.x = 700 * Math.cos(r);
-      this.directionalLight.position.y = 700 * Math.sin(r);
-      // const angle: number =
-      //   (new THREE.Vector2(
-      //     this.directionalLight.position.x,
-      //     this.directionalLight.position.y,
-      //   ).angle() *
-      //     180) /
-      //   Math.PI;
-      // if (1 < angle && angle < 180) {
-      //   console.log("白天", angle);
-      // } else {
-      //   console.log("夜晚", angle);
-      // }
-    }
   };
   resize = () => {
     this.dome = document.querySelector(`#${this.params.id}`);
@@ -383,13 +366,31 @@ export default class Thre3d {
     } else {
       const group = new THREE.Group();
       group.name = "sun";
-      const directionalLight1 = new THREE.DirectionalLight(
-        0xffffff,
-        intensity / 4,
-      );
-      directionalLight1.position.set(x, y, z);
 
-      group.add(directionalLight1);
+      for (let i = 0; i < 4; i++) {
+        const directionalLight1 = new THREE.DirectionalLight(
+          0xffffff,
+          intensity / 4,
+        );
+        switch (i) {
+          case 0:
+            directionalLight1.position.set(x, y, z);
+            break;
+          case 1:
+            directionalLight1.position.set(-x, y, z);
+            break;
+          case 2:
+            directionalLight1.position.set(x, y, -z);
+            break;
+          case 3:
+            directionalLight1.position.set(-x, y, -z);
+            break;
+          default:
+            break;
+        }
+        group.add(directionalLight1);
+      }
+
       this.scene.add(group);
     }
   }
@@ -488,5 +489,11 @@ export default class Thre3d {
     this.camera.lookAt(lookAtX, lookAtY, lookAtZ);
     this.camera.position.set(x, y, z);
     this.controls.update();
+  }
+  getScene() {
+    return this.scene;
+  }
+  sceneAdd(any: any) {
+    this.scene.add(any);
   }
 }
