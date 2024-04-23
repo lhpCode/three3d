@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+// import { ref } from "vue";
 import Card from "@/components/card/index.vue";
 import useEcharts from "@/hooks/useEcharts";
 import userEchartsData from "./hooks/useEchartsData";
@@ -11,6 +11,7 @@ const {
   distributeOption,
 } = userEchartsData();
 const {
+  getModelParams,
   patrolStatus,
   showPatrol,
   firstPerson,
@@ -18,6 +19,9 @@ const {
   showLine,
   switchShowLine,
   moveCamera,
+  patrolPartyList,
+  deviceList,
+  showModel,
 } = useThree("office");
 useEcharts(deviceOnlineOption, "deviceOnline");
 useEcharts(numberOfAlarmsOption, "numberOfAlarms");
@@ -46,10 +50,36 @@ const visualAngleList = [
     lookAt: { x: -40, y: 0, z: 0 },
   },
 ];
-const visualNumber = ref(0);
+
 const changeView = (v: string) => {
   const { position, lookAt } = visualAngleList[v];
   moveCamera(position, lookAt);
+  showModel("Obj3d66-9137221-8872-105", true);
+};
+
+const location = (name: string) => {
+  const model = getModelParams(name);
+  if (!model) return;
+  const { position } = model;
+  moveCamera(
+    {
+      x: position.x,
+      y: 50,
+      z: position.z + 20,
+    },
+    position,
+    1000,
+  );
+};
+
+const locationPatrolParty = (v: any) => {
+  const { name } = v;
+  location(name);
+};
+
+const clickDevice = (v) => {
+  const { name } = v;
+  location(name);
 };
 </script>
 
@@ -100,6 +130,43 @@ const changeView = (v: string) => {
           </template>
           <div class="patrol-party-list">
             <!-- <div id="distribute" /> -->
+            <div class="people">
+              <div
+                class="item"
+                @click="clickDevice(item)"
+                v-for="item in patrolPartyList"
+                :key="item.id"
+              >
+                <SvgIcon iconName="Place" />
+                {{ item.name }}
+              </div>
+            </div>
+          </div>
+        </Card>
+        <Card class="card-box">
+          <template #title>
+            <div class="title">设备列表</div>
+          </template>
+          <div class="patrol-party-list">
+            <!-- <div id="distribute" /> -->
+            <div class="people">
+              <div
+                class="item"
+                @click="locationPatrolParty(item)"
+                v-for="item in deviceList"
+                :key="item.id"
+              >
+                <SvgIcon iconName="Place" />
+
+                <span
+                  :class="{
+                    state: item.state === 0,
+                  }"
+                >
+                  {{ item.name }}</span
+                >
+              </div>
+            </div>
           </div>
         </Card>
       </div>
@@ -119,7 +186,6 @@ const changeView = (v: string) => {
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item
-              :disabled="i === visualNumber"
               :command="i"
               v-for="(item, i) in visualAngleList"
               :key="i"
@@ -188,6 +254,22 @@ const changeView = (v: string) => {
         rgba(0, 0, 0, 0.1)
       );
       .patrol-party-list {
+        height: 200px;
+        overflow-y: auto;
+        .people {
+          margin: 5px 10px;
+          .item {
+            height: 26px;
+            line-height: 26px;
+            border-bottom: 1px dashed #56bce7;
+            span {
+              margin-left: 5px;
+            }
+            .state {
+              color: #ff123b;
+            }
+          }
+        }
       }
     }
     .left {

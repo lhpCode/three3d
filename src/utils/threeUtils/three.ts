@@ -156,6 +156,7 @@ export class Three3D {
     // const y = Math.floor(selected.point.y * 100) / 100;
     const z = Math.floor(selected.point.z * 100) / 100;
     console.log("x:" + x + ",y:" + 0.1 + ",z:" + z);
+    console.log(selected);
   };
 }
 

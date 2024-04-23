@@ -34,10 +34,53 @@ const initThree = (id: string) => {
   // 加载模型
   addGltf(gltfModelList); // 场景
   addGltf(patrolPartyList.value); // 人物
+  copyModel(); // 同一模型模型批量加载 =>设备
   // 加载标签
   addLabel();
   // 添加围栏
   addFace();
+};
+
+// 加载设备模型
+const deviceList = ref<any>([]);
+const copyModel = () => {
+  // 生成6行12列设备
+  let id = 0;
+  for (let i = 0; i < 6; i++) {
+    for (let j = 0; j < 12; j++) {
+      id++;
+      deviceList.value.push({
+        id: id,
+        name: `设备${id}`,
+        position: { x: 25 + j * 4, y: 0.1, z: -12 + i * 4 },
+        rotation: { x: 0, y: 0, z: 0 },
+        state: Math.round(Math.random()),
+      });
+    }
+  }
+  // 生成一个设备标签组
+  const labelGroup = new THREE.Group();
+  labelGroup.name = "devLabel";
+  threeTest.addScene(labelGroup);
+  loadGltf("gltf/device.gltf", "").then((gltf) => {
+    for (let i = 0; i < deviceList.value.length; i++) {
+      const { name, id, position, state } = deviceList.value[i];
+      const model = gltf.scene.clone();
+      model.name = name;
+      setModel(model, gltf.animations, deviceList.value[i]);
+
+      const box = createLabel({
+        name: `设备标签${id}`,
+        type: "CSS2DObject",
+        element: new DeviceSpriteDom(
+          state === 1 ? "#3ac9a2" : "#ff4137",
+          `设备${id}`,
+        ).getElement(),
+      });
+      box.position.set(position.x, position.y + 3, position.z);
+      labelGroup.add(box);
+    }
+  });
 };
 
 // gltf模型数组
@@ -395,16 +438,31 @@ const switchShowLine = () => {
 };
 
 let cameraTween: any = null;
-const moveCamera = (position: any, lookAt: any) => {
+const moveCamera = (
+  position: any,
+  lookAt: any,
+  time: number | undefined = 3000,
+) => {
   const camera = threeTest.camera;
   const controls = threeTest.controls;
   if (cameraTween) cameraTween.stop();
   cameraTween = new TWEEN.Tween(camera.position)
-    .to(position, 3000)
+    .to(position, time)
     .onUpdate(function () {
       controls.setCameraLookAt(lookAt);
     })
     .start();
+};
+
+const showModel = (name: string, flag: boolean) => {
+  const model = getModel(name, threeTest.scene);
+  if (!model) return;
+  model.visible = flag;
+};
+
+const getModelParams = (name: string) => {
+  showModel("Obj3d66-9137221-8872-105", false);
+  return getModel(name, threeTest.scene);
 };
 
 export default function (id: string) {
@@ -421,5 +479,9 @@ export default function (id: string) {
     showLine,
     switchShowLine,
     moveCamera,
+    patrolPartyList,
+    getModelParams,
+    deviceList,
+    showModel,
   };
 }
