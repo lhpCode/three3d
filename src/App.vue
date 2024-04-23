@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-// import { ref } from "vue";
 import Card from "@/components/card/index.vue";
 import useEcharts from "@/hooks/useEcharts";
 import userEchartsData from "./hooks/useEchartsData";
@@ -30,24 +29,29 @@ useEcharts(distributeOption, "distribute");
 // 视角列表数组
 const visualAngleList = [
   {
+    name: "主视图",
     position: { x: 0, y: 10, z: 150 },
     lookAt: { x: 0, y: 0, z: 0 },
   },
   {
+    name: "电箱",
     position: { x: 140, y: 10, z: 40 },
     lookAt: { x: 40, y: 5, z: 40 },
   },
   {
+    name: "办公楼",
     position: { x: -40, y: 10, z: 100 },
     lookAt: { x: -40, y: 15, z: 0 },
   },
   {
+    name: "猫",
     position: { x: 10, y: 2, z: 50 },
     lookAt: { x: 10, y: 0, z: 40 },
   },
   {
-    position: { x: -40, y: 10, z: 100 },
-    lookAt: { x: -40, y: 0, z: 0 },
+    name: "厂房",
+    position: { x: 50, y: 40, z: 100 },
+    lookAt: { x: 50, y: 0, z: 0 },
   },
 ];
 
@@ -77,7 +81,7 @@ const locationPatrolParty = (v: any) => {
   location(name);
 };
 
-const clickDevice = (v) => {
+const clickDevice = (v: any) => {
   const { name } = v;
   location(name);
 };
@@ -128,7 +132,7 @@ const clickDevice = (v) => {
           <template #title>
             <div class="title">巡逻人员</div>
           </template>
-          <div class="patrol-party-list">
+          <div class="list">
             <!-- <div id="distribute" /> -->
             <div class="people">
               <div
@@ -147,7 +151,7 @@ const clickDevice = (v) => {
           <template #title>
             <div class="title">设备列表</div>
           </template>
-          <div class="patrol-party-list">
+          <div class="list">
             <!-- <div id="distribute" /> -->
             <div class="people">
               <div
@@ -166,6 +170,16 @@ const clickDevice = (v) => {
                   {{ item.name }}</span
                 >
               </div>
+            </div>
+          </div>
+        </Card>
+        <Card class="card-box">
+          <template #title>
+            <div class="title">告警列表</div>
+          </template>
+          <div class="list">
+            <div class="people">
+              <div class="item" v-for="item in 20" :key="item">设备告警</div>
             </div>
           </div>
         </Card>
@@ -189,7 +203,7 @@ const clickDevice = (v) => {
               :command="i"
               v-for="(item, i) in visualAngleList"
               :key="i"
-              >视角{{ i + 1 }}</el-dropdown-item
+              >{{ item.name }}</el-dropdown-item
             >
           </el-dropdown-menu>
         </template>
@@ -253,7 +267,7 @@ const clickDevice = (v) => {
         rgba(0, 0, 0, 0.4),
         rgba(0, 0, 0, 0.1)
       );
-      .patrol-party-list {
+      .list {
         height: 200px;
         overflow-y: auto;
         .people {
