@@ -90,7 +90,7 @@ const clickDevice = (v: any) => {
 <template>
   <div class="layout">
     <div class="head">
-      <p data-text="THREE MALL">THREE MALL</p>
+      <p data-text="Digital Factory">Digital Factory</p>
     </div>
     <div class="centre">
       <div class="left box">
@@ -237,7 +237,6 @@ const clickDevice = (v: any) => {
 
   .head {
     position: relative;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -249,7 +248,6 @@ const clickDevice = (v: any) => {
       margin: auto;
       word-spacing: 0.2em;
       display: inline-block;
-      line-height: 1;
       white-space: nowrap;
       color: transparent;
       background-color: #17c2e5;

@@ -229,10 +229,11 @@ const personPatrol = (threeTest: Three3D) => {
         inFace.value = flag;
         if (inFace.value) {
           setGeometryStyle("围栏", "rgb(255, 64, 95)", threeTest);
-          ElNotification({
-            title: "Warning",
+
+          ElMessage({
             message: "进入围栏,暂停五秒",
             type: "warning",
+            offset: 64,
           });
 
           showPatrol();
@@ -240,10 +241,10 @@ const personPatrol = (threeTest: Three3D) => {
             showPatrol();
           }, 5000);
         } else {
-          ElNotification({
-            title: "Success",
+          ElMessage({
             message: "离开围栏",
             type: "success",
+            offset: 64,
           });
           setGeometryStyle("围栏", "rgb(51, 188, 176)", threeTest);
         }
