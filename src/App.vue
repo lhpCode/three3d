@@ -89,7 +89,9 @@ const clickDevice = (v: any) => {
 
 <template>
   <div class="layout">
-    <div class="head">1</div>
+    <div class="head">
+      <p data-text="THREE MALL">THREE MALL</p>
+    </div>
     <div class="centre">
       <div class="left box">
         <Card class="card-box">
@@ -234,9 +236,85 @@ const clickDevice = (v: any) => {
   flex-direction: column;
 
   .head {
-    height: 80px;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
     z-index: 9999999;
-    // background-color: rgba(0, 0, 0, 0.7);
+    font-size: 40px;
+    p {
+      position: relative;
+      margin: auto;
+      word-spacing: 0.2em;
+      display: inline-block;
+      line-height: 1;
+      white-space: nowrap;
+      color: transparent;
+      background-color: #17c2e5;
+      background-clip: text;
+      z-index: 2;
+      font-weight: 900;
+      font-family: myFirstFont;
+    }
+
+    p::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      background-image: linear-gradient(
+        120deg,
+        transparent 0%,
+        transparent 2rem,
+        white 2rem,
+        transparent 4.15rem,
+        transparent 15rem,
+        rgba(255, 255, 255, 0.3) 40px,
+        transparent 25rem,
+        transparent 27rem,
+        rgba(255, 255, 255, 0.6) 32rem,
+        white 33rem,
+        rgba(255, 255, 255, 0.3) 33.15rem,
+        transparent 38rem,
+        transparent 40rem,
+        rgba(255, 255, 255, 0.3) 45rem,
+        transparent 20rem,
+        transparent 100%
+      );
+
+      background-clip: text;
+      background-size: 150% 100%;
+      background-repeat: no-repeat;
+      animation: shine 5s infinite linear;
+    }
+
+    @keyframes shine {
+      0% {
+        background-position: 50% 0;
+      }
+      100% {
+        background-position: -190% 0;
+      }
+    }
+
+    &::after {
+      display: flex;
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 60px;
+      background: url("image/head_bg.png") no-repeat;
+      background-size: 100% 100%;
+      opacity: 0.8;
+      z-index: 0;
+    }
   }
   .centre {
     flex: 1;
@@ -249,24 +327,11 @@ const clickDevice = (v: any) => {
       width: 300px;
       height: 100%;
       z-index: 9999999;
-      background-color: rgba(15, 30, 47, 0.8);
-      background: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0.4),
-        rgba(0, 0, 0, 0.1)
-      );
-      box-sizing: border-box;
-      box-shadow: inset 0px 0px 30px 5px rgba(255, 255, 255, 0.6);
       .card-box {
         margin-bottom: 20px;
       }
     }
     .right {
-      background: linear-gradient(
-        to left,
-        rgba(0, 0, 0, 0.4),
-        rgba(0, 0, 0, 0.1)
-      );
       .list {
         height: 200px;
         overflow-y: auto;
