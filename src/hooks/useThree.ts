@@ -1,4 +1,4 @@
-import { onMounted, ref } from "vue";
+import { onMounted, ref, onBeforeUnmount } from "vue";
 import { Three3D } from "@/utils/threeUtils/three";
 import { createAmbientLight } from "@/utils/threeUtils/lightThree";
 import {
@@ -19,6 +19,12 @@ import { circleShader } from "@/utils/threeUtils/shader";
 import * as THREE from "three";
 import TWEEN from "@tweenjs/tween.js";
 let threeTest: Three3D;
+
+const resize = () => {
+  if (!threeTest) return;
+  threeTest.resize();
+};
+
 const initThree = (id: string) => {
   threeTest = new Three3D(id).init();
   // threeTest.axesHelper(); // 辅助坐标
@@ -30,7 +36,7 @@ const initThree = (id: string) => {
   const circle = new THREE.Mesh(geometry, material);
   circle.rotateX(-Math.PI / 2);
   threeTest.addScene(circle);
-
+  window.addEventListener("resize", resize);
   // 加载模型
   addGltf(gltfModelList); // 场景
   addGltf(patrolPartyList.value); // 人物
@@ -469,6 +475,9 @@ const getModelParams = (name: string) => {
 export default function (id: string) {
   onMounted(() => {
     initThree(id);
+  });
+  onBeforeUnmount(() => {
+    window.removeEventListener("resize", resize);
   });
   return {
     threeTest,
