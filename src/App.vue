@@ -323,7 +323,6 @@ const clickDevice = (v: any) => {
       position: relative;
       padding: 10px;
       width: 300px;
-      height: 100%;
       z-index: 9999999;
       .card-box {
         margin-bottom: 20px;
