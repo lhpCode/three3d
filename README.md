@@ -23,3 +23,7 @@ git clone https://github.com/lhpCode/three3d.git
 cd three3d
 
 npm install 或 yarn
+
+# 文章介绍
+
+https://juejin.cn/post/7373860534242770971
