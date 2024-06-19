@@ -117,7 +117,7 @@ watch(
 
         <el-dropdown>
           <div class="user-right flex-align">
-            <el-avatar :size="30" src="/image/bd.jpg" />
+            <!-- <el-avatar :size="30" src="/image/bd.jpg" /> -->
             <span class="user-name">{{ userInfoStore.userName }}</span>
           </div>
           <template #dropdown>

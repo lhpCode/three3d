@@ -34,7 +34,7 @@ const items = ref<MenuList[]>(getMenuList(systemStore.routerList));
     :class="systemStore.isCollapse ? 'close-menu' : 'open-menu'"
   >
     <div class="log">
-      <img class="log-image" src="/image/bd.jpg" />
+      <!-- <img class="log-image" src="/image/bd.jpg" /> -->
       <span class="log-name" v-show="!systemStore.isCollapse"
         >bd-admin-cli</span
       >
