@@ -3,12 +3,8 @@ import Card from "@/components/card/index.vue";
 import useEcharts from "@/hooks/useEcharts";
 import userEchartsData from "./hooks/useEchartsData";
 import useThree from "@/hooks/useThree";
-const {
-  deviceOnlineData,
-  deviceOnlineOption,
-  numberOfAlarmsOption,
-  distributeOption,
-} = userEchartsData();
+
+// three相关
 const {
   getModelParams,
   patrolStatus,
@@ -22,6 +18,16 @@ const {
   deviceList,
   showModel,
 } = useThree("office");
+
+// echarts格式
+const {
+  deviceOnlineData,
+  deviceOnlineOption,
+  numberOfAlarmsOption,
+  distributeOption,
+} = userEchartsData();
+
+// 创建图表
 useEcharts(deviceOnlineOption, "deviceOnline");
 useEcharts(numberOfAlarmsOption, "numberOfAlarms");
 useEcharts(distributeOption, "distribute");
@@ -55,12 +61,14 @@ const visualAngleList = [
   },
 ];
 
-const changeView = (v: string) => {
+// 切换视角
+const changeView = (v: number) => {
   const { position, lookAt } = visualAngleList[v];
   moveCamera(position, lookAt);
   showModel("Obj3d66-9137221-8872-105", true);
 };
 
+// 设置定位
 const location = (name: string) => {
   const model = getModelParams(name);
   if (!model) return;
