@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "prettier --write . & eslint --ext .js,.vue,ts,jsx,tsx src & vite --mode development",
+    "dev": "vite --mode development",
     "serve": "vite --mode development",
+    "dev:prettier": "prettier --write . & eslint --ext .js,.vue,ts,jsx,tsx src & vite --mode development",
     "serve:pro": "vite --mode production",
     "build": "vite build --mode development",
     "build:pro": "vite build --mode production",
@@ -19,15 +20,11 @@
     "@theatre/studio": "^0.7.0",
     "@tweenjs/tween.js": "^23.1.1",
     "@types/three": "^0.160.0",
-    "axios": "^1.6.7",
     "echarts": "^5.5.0",
     "element-plus": "^2.6.0",
     "path": "^0.12.7",
-    "pinia": "^2.1.7",
-    "pinia-plugin-persistedstate": "^3.2.1",
     "three": "^0.160.0",
-    "vue": "^3.4.19",
-    "vue-router": "^4.3.0"
+    "vue": "^3.4.19"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",

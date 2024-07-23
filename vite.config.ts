@@ -1,6 +1,5 @@
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
-import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import svgLoader from "vite-svg-loader";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
@@ -16,11 +15,6 @@ export default defineConfig((configEnv) => {
       vue(),
       // eslint(),
       svgLoader(),
-      createSvgIconsPlugin({
-        iconDirs: [resolve(process.cwd(), "src/icons/svg")],
-        symbolId: "[name]",
-      }),
-
       AutoImport({
         resolvers: [ElementPlusResolver()],
       }),
@@ -28,13 +22,6 @@ export default defineConfig((configEnv) => {
         resolvers: [ElementPlusResolver()],
       }),
     ],
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: "@import '@/styles/main.scss';",
-        },
-      },
-    },
     resolve: {
       extensions: [
         ".mjs",
